@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Simple Navigation Bar</title>
+    <link rel="stylesheet" href="exp7.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            display: flex;
+            flex-direction: column;
+            border: 2px solid black;
+            margin: 10px;
+            width: 100%;
+            height: auto;
+        }
+
+        .nav {
+            text-align: center;
+            padding-top: 20px;
+            background-color: lightgray;
+            height: 60px;
+            width: 100%;
+            font-size: 18px;
+            overflow: hidden;
+        }
+
+        #web {
+            text-decoration: none;
+            color: red;
+        }
+
+        .nav_items1 a {
+            float: left;
+            background: lightblue;
+            color: purple;
+            text-align: center;
+            margin: 10px;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+
+        .nav_items2 a {
+            float: left;
+            background: lightgreen;
+            color: purple;
+            text-align: center;
+            margin: 10px;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="nav">
+            <a>My <a id="web" href="">Website</a> Navigation</a>
+        </div>
+        <nav class="nav_items1">
+            <a href="">Home</a>
+            <a href="">About</a>
+            <a href="">Services</a>
+            <a href="">Contact</a>
+        </nav>
+        <nav class="nav_items2">
+            <a href="">Dashboard</a>
+            <a href="">Profile</a>
+            <a href="">Message</a>
+            <a href="">Logout</a>
+        </nav>
+    </div>
+</body>
+
+</html>

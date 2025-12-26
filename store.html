@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Product Page</title>
+    <link rel="stylesheet" href="exp6.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .box {
+            width: 100%;
+            height: 520px;
+            margin: 20px;
+            margin-left: auto;
+            border: 2px solid black;
+            background-color: #f2f2f2;
+        }
+        .navbar {
+            background-color: black;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            margin: 10px 10px;
+            padding: 14px 16px;
+        }
+        .productCard {
+            border-radius: 5px;
+            background: white;
+            text-align: left;
+            width: 380px;
+            margin: 20px auto;
+            padding: 16px;
+            font-family: Arial, sans-serif;
+        }
+        .productCard h3 {
+            margin-bottom: 10px;
+        }
+        .productCard p {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: gray;
+        }
+        #productImage {
+            width: 345px;
+            height: 205px;
+            margin-bottom: 15px;
+        }
+        #btn {
+            background-color: blue;
+            color: white;
+            padding: 10px 140px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #price {
+            font-size: medium;
+            color: green;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        #strike {
+            font-size: medium;
+            color: gray;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="navbar">
+            <h1>ShopEasy</h1>
+        </div>
+        <div class="productCard">
+            <img id="productImage"
+                src="Jacob and co watch.jpg"
+                alt="Premium Wrist Watch">
+            <h3>Premium Wrist Watch</h3>
+            <p id="description"> JACOB AND CO.RUBY EDITION .</p>
+            <p id="price"RS 55 &nbsp; <strike id="strike">₹89</strike> </p>
+            <button id="btn">Add to Cart</button>
+        </div>
+    </div>
+</body>
+</html>
