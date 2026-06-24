@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Result Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: darkgreen;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Grade Calculator</h2>
+
+    <input type="number" id="sub1" placeholder="Subject 1 Marks"><br>
+    <input type="number" id="sub2" placeholder="Subject 2 Marks"><br>
+    <input type="number" id="sub3" placeholder="Subject 3 Marks"><br>
+    <input type="number" id="sub4" placeholder="Subject 4 Marks"><br>
+
+    <button onclick="calculateResult()">Calculate Result</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function calculateResult() {
+    let s1 = Number(document.getElementById("sub1").value);
+    let s2 = Number(document.getElementById("sub2").value);
+    let s3 = Number(document.getElementById("sub3").value);
+    let s4 = Number(document.getElementById("sub4").value);
+
+    let total = s1 + s2 + s3 + s4;
+    let percentage = total / 4;
+
+    let grade, division;
+
+    if (percentage >= 90) {
+        grade = "A+";
+        division = "Distinction";
+    } 
+    else if (percentage >= 75) {
+        grade = "A";
+        division = "First Division";
+    } 
+    else if (percentage >= 60) {
+        grade = "B";
+        division = "First Division";
+    } 
+    else if (percentage >= 45) {
+        grade = "C";
+        division = "Second Division";
+    } 
+    else if (percentage >= 33) {
+        grade = "D";
+        division = "Third Division";
+    } 
+    else {
+        grade = "F";
+        division = "Fail";
+    }
+
+    document.getElementById("result").innerHTML =
+        "Total Marks: " + total + "/400<br>" +
+        "Percentage: " + percentage.toFixed(2) + "%<br>" +
+        "Grade: " + grade + "<br>" +
+        "Division: " + division;
+}
+</script>
+
+</body>
+</html>

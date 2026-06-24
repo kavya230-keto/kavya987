@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amazon Style Clone (HTML + CSS)</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+:root{
+  --amz-dark:#131921;
+  --amz-nav:#232f3e;
+  --amz-accent:#febd69;
+  --amz-accent2:#f3a847;
+  --bg:#eaeded;
+  --card:#ffffff;
+  --text:#111;
+  --muted:#666;
+}
+body{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+a{ color: inherit; text-decoration: none; }
+.container{ width: min(1180px, 92%); margin: 0 auto; }
+.muted{ color: var(--muted); }
+.small{ font-size: 0.82rem; }
+.bold{ font-weight: 800; }
+
+/* Header */
+.amz-header{ position: sticky; top: 0; z-index: 50; }
+.amz-top{
+  background: var(--amz-dark);
+  color: #fff;
+  display: grid;
+  grid-template-columns: 170px 140px 1fr 290px;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 14px;
+}
+.brand{ display:flex; align-items: baseline; gap: 4px; font-weight: 900; }
+.brand__text{ font-size: 1.6rem; text-transform: lowercase; }
+.brand__dot{ font-size: 1rem; opacity: 0.9; }
+
+.deliver{
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+.deliver:hover{ border-color: rgba(255,255,255,0.35); }
+.deliver__line1{ display:block; font-size: .75rem; opacity: .9; }
+.deliver__line2{ display:block; font-weight: 800; margin-top: 1px; }
+
+.search{
+  display:flex;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 42px;
+}
+.search__select{
+  background:#e6e6e6;
+  color:#333;
+  padding: 0 12px;
+  display:flex; align-items:center;
+  font-size: .9rem;
+  border-right: 1px solid #cfcfcf;
+}
+.search__input{
+  width:100%;
+  border: 0;
+  outline: 0;
+  padding: 0 12px;
+  font-size: 1rem;
+}
+.search__btn{
+  border: 0;
+  background: var(--amz-accent);
+  width: 52px;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+.search__btn:hover{ background: var(--amz-accent2); }
+
+.top-actions{ display:flex; justify-content: flex-end; gap: 12px; align-items:center; }
+.top-actions__item{
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  line-height: 1.05;
+}
+.top-actions__item:hover{ border-color: rgba(255,255,255,0.35); }
+
+.cart{
+  position: relative;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  display:flex; align-items:center; gap: 8px;
+  font-weight: 800;
+}
+.cart:hover{ border-color: rgba(255,255,255,0.35); }
+.cart__icon{ font-size: 1.4rem; }
+.cart__badge{
+  position:absolute; top: 4px; left: 22px;
+  background: #f08804; color:#111; font-weight: 900; font-size: .75rem;
+  padding: 2px 6px; border-radius: 999px;
+}
+
+.amz-nav{ background: var(--amz-nav); color:#fff; }
+.nav-wrap{
+  display:flex; gap: 14px; align-items:center;
+  padding: 8px 0; overflow:auto; scrollbar-width: none;
+}
+.nav-wrap::-webkit-scrollbar{ display:none; }
+.nav-item{
+  white-space: nowrap;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-weight: 650;
+  font-size: .92rem;
+}
+.nav-item:hover{ border-color: rgba(255,255,255,0.35); }
+.nav-item--menu{ font-weight: 900; }
+.nav-item--right{ margin-left:auto; font-weight: 900; }
+
+/* HERO (image + overlay text) */
+.hero{ padding: 18px 0 10px; }
+.hero-banner{
+  position: relative;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 260px;
+}
+.hero-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+  filter: saturate(1.05);
+}
+.hero-text{
+  position:absolute;
+  inset: 0;
+  padding: 22px 18px;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  color:#fff;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.05));
+}
+.hero-text h1{
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
+  line-height: 1.15;
+}
+.hero-text p{ margin-top: 8px; opacity: .95; }
+
+/* Cards */
+.cards{
+  margin-top: -46px;
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+.card{
+  background: var(--card);
+  border-radius: 6px;
+  padding: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+  min-height: 290px;
+  display:flex;
+  flex-direction: column;
+}
+.card h2{ font-size: 1.05rem; margin-bottom: 12px; }
+.card-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+.mini{ display:flex; flex-direction: column; gap: 6px; }
+.mini-img{
+  width: 100%;
+  height: 86px;
+  object-fit: cover;
+  border-radius: 4px;
+  display:block;
+}
+.big-img{
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 4px;
+  display:block;
+}
+.cap{ font-size: .85rem; color:#222; }
+
+.see-more{
+  margin-top: auto;
+  color:#007185;
+  font-size:.9rem;
+}
+.see-more:hover{ text-decoration: underline; }
+
+.signin-box{ margin-top: 6px; display:flex; flex-direction: column; gap: 10px; }
+.btn{
+  display:inline-flex; justify-content:center; align-items:center;
+  padding: 10px 12px; border-radius: 8px;
+  font-weight: 900;
+  background: #ffd814; border: 1px solid #fcd200;
+  color:#111;
+}
+.btn:hover{ filter: brightness(0.98); }
+.btn--small{ padding: 9px 10px; border-radius: 8px; }
+
+/* Strip */
+.strip{
+  margin-top: 14px;
+  background: var(--card);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+  padding: 14px;
+}
+.strip-head{
+  display:flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 10px;
+}
+.strip-link{ color:#007185; font-size:.92rem; }
+.strip-link:hover{ text-decoration: underline; }
+
+.strip-row{
+  display:flex; gap: 12px; overflow:auto; padding-bottom: 6px;
+  scrollbar-width: none;
+}
+.strip-row::-webkit-scrollbar{ display:none; }
+.strip-item{ min-width: 170px; display:flex; flex-direction: column; gap: 8px; }
+.strip-img{
+  width: 170px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: 4px;
+  display:block;
+}
+
+/* Products */
+.main{ padding: 14px 0 24px; }
+.section-title{ margin: 14px 0 10px; }
+.product-grid{
+  display:grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+.product{
+  background: var(--card);
+  border-radius: 6px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+  display:flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.prod-img{
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 6px;
+  display:block;
+}
+.product h3{ font-size: .95rem; line-height: 1.2; }
+.price{ font-weight: 900; }
+.strike{
+  color:#777; text-decoration: line-through; font-weight: 600;
+  margin-left: 6px; font-size: .9rem;
+}
+
+/* Footer */
+.footer{ margin-top: 10px; background: #232f3e; color:#fff; }
+.back-top{
+  display:block; text-align:center; padding: 14px 0;
+  background: #37475a; font-weight: 800;
+}
+.back-top:hover{ filter: brightness(1.03); }
+.footer-cols{
+  display:grid; grid-template-columns: repeat(4, 1fr);
+  gap: 18px; padding: 26px 0;
+}
+.footer-cols h4{ margin-bottom: 10px; }
+.footer-cols a{ display:block; opacity: .9; margin: 8px 0; font-size: .92rem; }
+.footer-cols a:hover{ text-decoration: underline; opacity: 1; }
+.footer-bottom{ background: #131a22; padding: 16px 0; }
+.footer-bottom__inner{
+  display:flex; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+}
+.small-brand{ font-weight: 900; }
+
+/* Responsive */
+@media (max-width: 1100px){
+  .amz-top{ grid-template-columns: 170px 140px 1fr; }
+  .top-actions{ display:none; }
+  .product-grid{ grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px){
+  .cards{ grid-template-columns: repeat(2, 1fr); }
+  .footer-cols{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px){
+  .amz-top{ grid-template-columns: 1fr; }
+  .deliver{ display:none; }
+  .cards{ grid-template-columns: 1fr; }
+  .product-grid{ grid-template-columns: 1fr; }
+  .strip-img{ width: 150px; }
+  .strip-item{ min-width: 150px; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="amz-header">
+    <div class="amz-top">
+      <a class="brand" href="#">
+        <span class="brand__text">amazon</span>
+        <span class="brand__dot">.in</span>
+      </a>
+
+      <a class="deliver" href="#">
+        <span class="deliver__line1">Deliver to</span>
+        <span class="deliver__line2">India</span>
+      </a>
+
+      <form class="search" action="#">
+        <div class="search__select">All</div>
+        <input class="search__input" type="text" placeholder="Search Amazon.in" />
+        <button class="search__btn" type="submit" aria-label="Search">🔍</button>
+      </form>
+
+      <nav class="top-actions">
+        <a href="#" class="top-actions__item">
+          <span class="small">Hello, sign in</span>
+          <span class="bold">Account & Lists</span>
+        </a>
+        <a href="#" class="top-actions__item">
+          <span class="small">Returns</span>
+          <span class="bold">& Orders</span>
+        </a>
+        <a href="#" class="cart" aria-label="Cart">
+          <span class="cart__icon">🛒</span>
+          <span class="cart__text">Cart</span>
+          <span class="cart__badge">2</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="amz-nav">
+      <div class="container nav-wrap">
+        <a class="nav-item nav-item--menu" href="#">☰ All</a>
+        <a class="nav-item" href="#">Fresh</a>
+        <a class="nav-item" href="#">Amazon miniTV</a>
+        <a class="nav-item" href="#">Sell</a>
+        <a class="nav-item" href="#">Best Sellers</a>
+        <a class="nav-item" href="#">Mobiles</a>
+        <a class="nav-item" href="#">Today's Deals</a>
+        <a class="nav-item" href="#">Customer Service</a>
+        <a class="nav-item" href="#">Prime</a>
+        <a class="nav-item nav-item--right" href="#">Great Deals</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+
+      <div class="hero-banner">
+        <img class="hero-img" src="https://m.media-amazon.com/images/I/61jAjwAPEdL._SX1500_.jpg" alt="Hero banner">
+        <div class="hero-text">
+          <h1>Great Deals for Your Everyday Essentials</h1>
+          
+        </div>
+      </div>
+
+      <!-- Home Cards -->
+      <div class="cards">
+        <article class="card">
+          <h2>Revamp your home</h2>
+          <div class="card-grid">
+            <a class="mini" href="#">
+              <img class="mini-img" src="https://images.pexels.com/photos/1768513/pexels-photo-1768513.jpeg" alt="Cushions">
+              <span class="cap">Cushions</span>
+            </a>
+            <a class="mini" href="#">
+              <img class="mini-img" src="https://images.pexels.com/photos/1099816/pexels-photo-1099816.jpeg" alt="Figurines">
+              <span class="cap">Figurines</span>
+            </a>
+            <a class="mini" href="#">
+              <img class="mini-img" src="https://images.pexels.com/photos/3735219/pexels-photo-3735219.jpeg" alt="Storage">
+              <span class="cap">Storage</span>
+            </a>
+            <a class="mini" href="#">
+              <img class="mini-img" src="https://images.pexels.com/photos/1090638/pexels-photo-1090638.jpeg" alt="Lighting">
+              <span class="cap">Lighting</span>
+            </a>
+          </div>
+          <a class="see-more" href="#">See more</a>
+        </article>
+
+        <article class="card">
+          <h2>Top picks in fashion</h2>
+          <div class="card-grid">
+            <a class="mini" href="#">
+              <img class="mini-img" src="https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg" alt="Men's Fashion">
+              <span class="cap">Men's</span>
+            </a>
+            <a class="mini" href="#">
+              <img class="mini-img" src="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg" alt="Women's Fashion">
+              <span class="cap">Women's</span>
+            </a>
+            <a class="mini" href="#">
+              <img class="mini-img" src="https://images.pexels.com/photos/1214212/pexels-photo-1214212.jpeg" alt="Bags">
+              <span class="cap">Bags</span>
+            </a>
+            <a class="mini" href="#">
+              <img class="mini-img" src="https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg" alt="Shoes">
+              <span class="cap">Shoes</span>
+            </a>
+          </div>
+          <a class="see-more" href="#">See more</a>
+        </article>
+
+        <article class="card">
+          <h2>Up to 60% off | Electronics</h2>
+          <div class="card-big">
+            <img class="big-img" src="https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg" alt="Electronics deals">
+            <span class="cap">Headphones, Watches & more</span>
+          </div>
+          <a class="see-more" href="#">See more</a>
+        </article>
+
+        <article class="card">
+          <h2>Sign in for best experience</h2>
+          <div class="signin-box">
+            <a class="btn" href="#">Sign in securely</a>
+            <p class="muted">New customer? <a href="#">Start here</a></p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deals Strip -->
+  <section class="strip container">
+    <div class="strip-head">
+      <h2>Deals under ₹999</h2>
+      <a href="#" class="strip-link">See all deals</a>
+    </div>
+
+    <div class="strip-row">
+      <a class="strip-item" href="#">
+        <img class="strip-img" src="https://images.pexels.com/photos/2081199/pexels-photo-2081199.jpeg" alt="Backpacks">
+        <span class="cap">Backpacks</span>
+      </a>
+      <a class="strip-item" href="#">
+        <img class="strip-img" src="https://images.pexels.com/photos/2867448/pexels-photo-2867448.jpeg" alt="Hair clips">
+        <span class="cap">Hair clips</span>
+      </a>
+      <a class="strip-item" href="#">
+        <img class="strip-img" src="https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg" alt="Hoodies">
+        <span class="cap">Hoodies</span>
+      </a>
+      <a class="strip-item" href="#">
+        <img class="strip-img" src="https://images.pexels.com/photos/8581406/pexels-photo-8581406.jpeg" alt="Organisers">
+        <span class="cap">Organisers</span>
+      </a>
+      <a class="strip-item" href="#">
+        <img class="strip-img" src="https://images.pexels.com/photos/1478442/pexels-photo-1478442.jpeg" alt="Sneakers">
+        <span class="cap">Sneakers</span>
+      </a>
+      <a class="strip-item" href="#">
+        <img class="strip-img" src="https://images.pexels.com/photos/3999057/pexels-photo-3999057.jpeg" alt="Skincare">
+        <span class="cap">Skincare</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Product Grid -->
+  <main class="container main">
+    <div class="section-title">
+      <h2>Recommended for you</h2>
+    </div>
+
+    <div class="product-grid">
+      <article class="product">
+        <img class="prod-img" src="https://images.pexels.com/photos/35649309/pexels-photo-35649309/free-photo-of-cool-casual-style-in-palm-springs-hoodie.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Printed Hoodie for Men">
+        <h3>Printed Hoodie for Men</h3>
+        <p class="muted">Warm • Travel • Gym</p>
+        <p class="price">₹799 <span class="strike">₹1299</span></p>
+        <a class="btn btn--small" href="#">Add to Cart</a>
+      </article>
+
+      <article class="product">
+        <img class="prod-img" src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ_l9PMTSqW730M9hS54DGBgpe9ZWnQehVfLTv-fLYe1ShFo3NI-pNpPbEDq36yKkuosRGL-BhW1H9t_5TNp1AS6Sx-6rakGul1SkW_sbi2oRHcedmv6Tew-Q" alt="Korean Hair Clips Set">
+        <h3>Korean Hair Clips (Set of 20)</h3>
+        <p class="muted">Cute • Trendy</p>
+        <p class="price">₹199 <span class="strike">₹399</span></p>
+        <a class="btn btn--small" href="#">Add to Cart</a>
+      </article>
+
+      <article class="product">
+        <img class="prod-img" src="https://images.pexels.com/photos/3731256/pexels-photo-3731256.jpeg" alt="Water Resistant College Bag">
+        <h3>Water Resistant College Bag</h3>
+        <p class="muted">Laptop • Notes</p>
+        <p class="price">₹999 <span class="strike">₹1499</span></p>
+        <a class="btn btn--small" href="#">Add to Cart</a>
+      </article>
+
+      <article class="product">
+        <img class="prod-img" src="https://images.pexels.com/photos/7679657/pexels-photo-7679657.jpeg" alt="Jewellery organiser box">
+        <h3>Jewellery Organiser Box</h3>
+        <p class="muted">Portable • Dividers</p>
+        <p class="price">₹349 <span class="strike">₹599</span></p>
+        <a class="btn btn--small" href="#">Add to Cart</a>
+      </article>
+
+      <article class="product">
+        <img class="prod-img" src="https://images.pexels.com/photos/2759779/pexels-photo-2759779.jpeg" alt="Minimal Sneakers">
+        <h3>Minimal Sneakers</h3>
+        <p class="muted">Everyday comfort</p>
+        <p class="price">₹1299 <span class="strike">₹1999</span></p>
+        <a class="btn btn--small" href="#">Add to Cart</a>
+      </article>
+
+      <article class="product">
+        <img class="prod-img" src="https://images.pexels.com/photos/8793279/pexels-photo-8793279.jpeg" alt="Oversized T-shirt">
+        <h3>Oversized T-Shirt</h3>
+        <p class="muted">Streetwear style</p>
+        <p class="price">₹499 <span class="strike">₹799</span></p>
+        <a class="btn btn--small" href="#">Add to Cart</a>
+      </article>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <a class="back-top" href="#">Back to top</a>
+
+    <div class="container footer-cols">
+      <div>
+        <h4>Get to Know Us</h4>
+        <a href="#">About Us</a>
+        <a href="#">Careers</a>
+        <a href="#">Press Releases</a>
+      </div>
+
+      <div>
+        <h4>Connect with Us</h4>
+        <a href="#">Facebook</a>
+        <a href="#">Twitter</a>
+        <a href="#">Instagram</a>
+      </div>
+
+      <div>
+        <h4>Make Money with Us</h4>
+        <a href="#">Sell on Shop</a>
+        <a href="#">Become an Affiliate</a>
+        <a href="#">Advertise Products</a>
+      </div>
+
+      <div>
+        <h4>Let Us Help You</h4>
+        <a href="#">Your Account</a>
+        <a href="#">Returns Centre</a>
+        <a href="#">Help</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom__inner">
+        <span class="brand small-brand">amazon.in (clone UI)</span>
+        <span class="muted">Built with HTML + CSS only</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
